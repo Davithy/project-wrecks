@@ -1,0 +1,367 @@
+/* CSS HEX */
+:root {
+    --primary-color: #EF233C;
+    --secondary-color: #FCAB64;
+    --tertiary-color: #439A86;
+    --accent-color: #1E3888;
+    --white: #D1CCDC;
+    --black: #231C07;
+}
+
+/* .rubik-medium {
+    font-family: "Rubik", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.rubik-mono-one-regular {
+    font-family: "Rubik Mono One", monospace;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.raleway-light {
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+} */
+/* =====================================================================================================================================
+CSS RESETS
+========================================= */
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Merriweather Sans", sans-serif;
+    min-height: 100vh;
+    font-size: 1.4rem;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+svg,
+video,
+canvas {
+    display: block;
+    max-width: 100%;
+}
+
+input,
+textarea,
+button,
+select {
+    font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-wrap: balance;
+}
+
+p,
+li,
+figcaption {
+    text-wrap: pretty;
+    max-width: 65ch;
+}
+
+/* --------------------------------------------------- GLOBAL DECLARATIONS ------------------------------------------------------ */
+
+body {
+    background: hsl(from var(--accent-color) h s calc(l - 20));
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ---------------------------------------------------- QUESTIONNAIRE FORM --------------------------------------------------- */
+
+.hidden {
+    position: absolute;
+    visibility: hidden;
+}
+
+@media screen and (min-width: 1101px) { 
+    .questionnaire {
+        display: grid;
+        padding: 0 5rem;
+        gap: 3rem;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-areas:
+        "name-menu choice-container choice-container"
+        "submission-btn choice-container choice-container";
+        justify-items: stretch;
+        align-items: center;
+    }
+
+    .name-menu {
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+        transform: translateY(240%);
+        transition: transform 0.2s ease-in;
+    }
+
+    .name-menu:has(#nav-check:checked) {
+        transform: translateY(0);
+    }
+
+    .submission-btn {
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+        transform: translateY(-240%);
+        transition: transform 0.2s ease-in;
+    }
+
+    .name-menu:has(#nav-check:checked) ~ .submission-btn {
+        transform: translateY(0);
+    }
+
+    .choice-container {
+        padding: 2rem;
+    }
+}
+
+@media screen and (max-width: 1100px) { 
+    .questionnaire {
+        display: grid;
+        padding: 2rem;
+        gap: 1rem;
+        grid-template-areas:
+        "name-menu"
+        "choice-container"
+        "choice-container"
+        "submission-btn";
+    }
+}
+
+.dropdown-check,
+.choice-checker {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.submission-btn {
+    grid-area: submission-btn;
+    font-family: "Rubik Mono One", monospace;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.4rem;
+    z-index: 10;
+}
+
+.submission-check {
+    width: 100%;
+    height: 3em;
+    border-radius: 1rem;
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+.nav-connector,
+.name-opt,
+.choice:has(.choice-checker:enabled) .choice-blueprint:hover,
+.submission-check {
+    cursor: pointer;
+}
+
+/* ------------------------------------------------------ DROPDOWN MENU -------------------------------------------------------- */
+
+.nav-connector {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+.name-menu { 
+    grid-area: name-menu;
+    font-family: "Rubik Mono One", monospace;
+    font-weight: 400;
+    font-style: normal;
+    z-index: 10;
+}
+
+.name-ctrl {
+    position: relative;
+    width: 100%;
+}
+
+.name-btn {
+    position: relative;
+    width: 100%;
+    color:var(--white);
+    font-size: 1.5rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    background-color: var(--primary-color);
+    z-index: 5;
+}
+
+.name-pnl {
+    display: flex;
+    position: absolute;
+    height: 0;
+    border-radius: 1rem;
+    font-size: 1.25rem;
+    flex-direction: column;
+    overflow: scroll;
+    top: 50%;
+    opacity: 0;
+    visibility: hidden;
+    min-width: 100%;
+    transition: height 0.2s ease-in, opacity 0.2s, top 0.3s ease-in-out, visibility 1s;
+    z-index: 4;
+}
+
+.name-ctrl:has(.dropdown-check:checked) .name-pnl {
+    opacity: 1;
+    top: 100%;
+    visibility: visible;
+    height: 21.5rem;
+}
+
+.name-opt {
+    display: flex;
+    appearance: none;
+    padding: 1rem;
+    min-width: 100%;
+    background-color: black;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    gap: 1px;
+}
+
+.name-opt:hover,
+.selected {
+    background-color: hsl(from var(--primary-color) h s calc(l - 30));
+}
+
+.name-opt .chosen-types {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    flex-grow: 1;
+    gap: clamp(1px, 3vw, 2px);
+}
+
+.chosen-types img {
+    height: 32px;
+    width: 32px;
+}
+
+/* ----------------------------------------------------- MULTIPLE CHOICE -------------------------------------------------------- */
+
+.choice-container { /* FULL SECTION */
+    grid-area: choice-container;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.multiple-choice { /* BOX IN SECTION */
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 350;
+    font-style: normal;
+    font-size: min(100%, 1.8rem);
+    background-color: hsl(from var(--white) h s calc(l + 30));
+    color: var(--black);
+    display: flex;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    padding: 2rem 0;
+    gap: 0.5rem;
+    border-radius: clamp(15px, 2vw, 20px);
+    user-select: none;
+    justify-content: center;
+    align-content: center;
+}
+
+.choice-blueprint {
+    display: grid;
+    justify-items: center;
+    align-content: stretch;
+    padding: 1rem 0;
+    width: clamp(6.5rem, 8vw, 11rem);
+    gap: 0.5rem;
+    border-radius: 10%;
+    background-color: hsl(from var(--white) h s calc(l + 10));
+    border: 3px solid hsl(from var(--tertiary-color) h s calc(l - 10));
+    transition: border 0.2s, transform 0.15s ease-in-out;
+}
+
+.choice-icon {
+    position: relative;
+    width: clamp(3rem, 10vw, 5rem);
+    height: clamp(3rem, 10vw, 5rem);
+    border-radius: 50%;
+    transition: box-shadow 0.15s ease-in, transform 0.2s ease-in-out;
+}
+
+.clear-all .choice-blueprint {
+    color: hsl(from var(--primary-color) h s calc(l - 10));
+    background-color: hsl(from var(--primary-color) h s calc(l + 35));
+    border: 3px solid hsl(from var(--primary-color) h s calc(l - 10));
+}
+
+.choice-blueprint:hover {
+    transform: scale(1.2);
+}
+
+.choice-blueprint:hover .choice-icon,
+.choice:not(.clear-all):has(.choice-checker:checked) .choice-icon {
+    transform: scale(1.05);
+}
+
+.choice:not(.clear-all) .choice-blueprint:hover,
+.choice:not(.clear-all):has(.choice-checker:checked) .choice-blueprint,
+.choice:not(.clear-all):has(.choice-checker:checked) .choice-icon {
+    border: 3px solid hsl(from var(--tertiary-color) calc(h - 10) calc(s + 20) calc(l + 15));
+    box-shadow: 0 0 2rem 1rem hsl(from var(--tertiary-color) calc(h - 10) calc(s + 30) calc(l + 20) / 40%) inset;
+}
+
+.choice:not(.clear-all) .choice-blueprint:hover .choice-icon,
+.choice:not(.clear-all):has(.choice-checker:checked) .choice-icon {
+    box-shadow: 0 0.5rem 1rem 0.1rem hsl(from var(--black) h s l / 40%);
+}
+
+.clear-all .choice-blueprint:hover {
+    border: 3px solid hsl(from var(--primary-color) h s calc(l + 20));
+    box-shadow: 0 0 2rem 1rem hsl(from var(--primary-color) h s calc(l + 20) / 50%) inset;
+}
