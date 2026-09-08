@@ -134,6 +134,18 @@ body {
         transform: translateY(0);
     }
 
+    .name-menu:has(#nav-check:checked) .name-btn {
+        border-radius: 1rem 1rem 0px 0px;
+    }
+
+    .name-menu:has(#nav-check:checked) ~ .submission-btn .submission-check {
+        border-radius: 0px 0px 1rem 1rem;
+    }
+
+    .name-menu:has(#nav-check:checked) .name-pnl {
+        border-radius: 0px;
+    }
+
     .submission-btn {
         display: flex;
         align-items: stretch;
