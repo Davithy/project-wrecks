@@ -374,24 +374,39 @@ body {
     border: 3px solid hsl(from var(--primary-color) h s calc(l - 10));
 }
 
-.choice:has(.choice-checker:enabled) .choice-blueprint:hover {
-    transform: scale(1.2);
+
+@media (hover: hover) and (pointer: fine) {
+
+    .choice:has(.choice-checker:enabled) .choice-blueprint:hover {
+        transform: scale(1.2);
+    }
+
+    .choice:not(.clear-all):has(.choice-checker:enabled) .choice-blueprint:hover .choice-icon{
+        transform: scale(1.05);
+        box-shadow: 0 0.5rem 1rem 0.1rem hsl(from var(--black) h s l / 40%);
+        border: 3px solid hsl(from var(--tertiary-color) calc(h - 50) calc(s + 20) calc(l + 15));
+    }
+
+    .choice:not(.clear-all):has(.choice-checker:enabled) .choice-blueprint:hover {
+        border: 3px solid hsl(from var(--tertiary-color) calc(h - 50) calc(s + 20) calc(l + 15));
+        box-shadow: 0 0 2rem 1rem hsl(from var(--tertiary-color) calc(h - 50) calc(s + 30) calc(l + 20) / 40%) inset;
+    }
+
+    .clear-all:has(.choice-checker:enabled) .choice-blueprint:hover {
+        border: 3px solid hsl(from var(--primary-color) h s calc(l + 20));
+        box-shadow: 0 0 2rem 1rem hsl(from var(--primary-color) h s calc(l + 20) / 50%) inset;
+    }
+
 }
 
-.choice:not(.clear-all):has(.choice-checker:enabled) .choice-blueprint:hover .choice-icon,
+.choice:not(.clear-all):has(.choice-checker:checked) .choice-blueprint {
+    border: 3px solid hsl(from var(--tertiary-color) calc(h - 50) calc(s + 20) calc(l + 15));
+    box-shadow: 0 0 2rem 1rem hsl(from var(--tertiary-color) calc(h - 50) calc(s + 30) calc(l + 20) / 40%) inset;
+
+}
+
 .choice:has(.choice-checker:checked) .choice-icon {
     transform: scale(1.05);
     box-shadow: 0 0.5rem 1rem 0.1rem hsl(from var(--black) h s l / 40%);
     border: 3px solid hsl(from var(--tertiary-color) calc(h - 50) calc(s + 20) calc(l + 15));
-}
-
-.choice:not(.clear-all):has(.choice-checker:enabled) .choice-blueprint:hover,
-.choice:not(.clear-all):has(.choice-checker:checked) .choice-blueprint {
-    border: 3px solid hsl(from var(--tertiary-color) calc(h - 50) calc(s + 20) calc(l + 15));
-    box-shadow: 0 0 2rem 1rem hsl(from var(--tertiary-color) calc(h - 50) calc(s + 30) calc(l + 20) / 40%) inset;
-}
-
-.clear-all:has(.choice-checker:enabled) .choice-blueprint:hover {
-    border: 3px solid hsl(from var(--primary-color) h s calc(l + 20));
-    box-shadow: 0 0 2rem 1rem hsl(from var(--primary-color) h s calc(l + 20) / 50%) inset;
 }
