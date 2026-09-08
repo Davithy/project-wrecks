@@ -95,7 +95,7 @@ figcaption {
 /* --------------------------------------------------- GLOBAL DECLARATIONS ------------------------------------------------------ */
 
 body {
-    background: hsl(from var(--accent-color) h s calc(l - 20));
+    background: hsl(from var(--accent-color) h s calc(l - 13));
     color: var(--white);
     display: flex;
     align-items: center;
@@ -107,6 +107,15 @@ body {
 .hidden {
     position: absolute;
     visibility: hidden;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--black);
+}
+
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb:hover {
+    background: var(--white);
 }
 
 @media screen and (min-width: 1101px) { 
@@ -254,6 +263,7 @@ body {
     font-size: 1.25rem;
     flex-direction: column;
     overflow: scroll;
+    overflow-x: hidden;
     top: 50%;
     opacity: 0;
     visibility: hidden;
@@ -274,7 +284,7 @@ body {
     appearance: none;
     padding: 1rem;
     min-width: 100%;
-    background-color: black;
+    background-color: var(--black);
     justify-content: space-between;
     align-items: center;
     user-select: none;
