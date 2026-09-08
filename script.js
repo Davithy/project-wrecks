@@ -36,6 +36,7 @@ function indexCheck() {
     } else {
         typeChoice.forEach(choice => {
             choice.disabled = false;
+            choiceProfile[0].complete = true;
         })
     } 
 }
@@ -68,11 +69,14 @@ function clearAll() {
 // Testing purposes --console.log("working on it.")
 }
 
+// As it says, submits the form to back end
 function formSubmit() {
-    if (choiceProfile.forEach.complete) {
-        console.log(choiceProfile[1]);
+    if (choiceProfile.every(cbox => cbox.complete == true)) {
+        console.log("You're all done now! Congratulations!");
+        console.log(choiceProfile);
     } else {
         window.alert("Some folks are still missing a type!")
+        console.log(choiceProfile);
     }
 }
 
