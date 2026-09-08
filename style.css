@@ -352,8 +352,7 @@ body {
 }
 
 .choice:not(.clear-all):has(.choice-checker:enabled) .choice-blueprint:hover,
-.choice:not(.clear-all):has(.choice-checker:checked) .choice-blueprint,
-.choice:not(.clear-all):has(.choice-checker:enabled) .choice-blueprint:hover .choice-icon {
+.choice:not(.clear-all):has(.choice-checker:checked) .choice-blueprint {
     border: 3px solid hsl(from var(--tertiary-color) calc(h - 10) calc(s + 20) calc(l + 15));
     box-shadow: 0 0 2rem 1rem hsl(from var(--tertiary-color) calc(h - 10) calc(s + 30) calc(l + 20) / 40%) inset;
 }
