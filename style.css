@@ -109,11 +109,18 @@ body {
     visibility: hidden;
 }
 
+::-webkit-scrollbar {
+    width: 1rem;
+}
+
 ::-webkit-scrollbar-track {
     background: var(--black);
 }
 
-::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb {
+    background: var(--white);
+}
+
 ::-webkit-scrollbar-thumb:hover {
     background: var(--white);
 }
