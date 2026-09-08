@@ -142,7 +142,7 @@ body {
         display: flex;
         align-items: stretch;
         justify-content: center;
-        transform: translateY(240%);
+        transform: translateY(clamp(160px, 2em, 640px));
         transition: transform 0.2s ease-in;
     }
 
@@ -166,7 +166,7 @@ body {
         display: flex;
         align-items: stretch;
         justify-content: center;
-        transform: translateY(-240%);
+        transform: translateY(clamp(-160px, -2em, -640px));
         transition: transform 0.2s ease-in;
     }
 
@@ -205,8 +205,8 @@ body {
     font-family: "Rubik Mono One", monospace;
     font-weight: 400;
     font-style: normal;
-    font-size: 1.4rem;
     z-index: 10;
+    font-size: clamp(0.8rem, 1vw + 0.2rem, 1.8rem);
 }
 
 .submission-check {
@@ -252,8 +252,8 @@ body {
     position: relative;
     width: 100%;
     color:var(--white);
-    font-size: 1.5rem;
     border-radius: 1rem;
+    font-size: clamp(0.8rem, 1vw + 0.2rem, 1.8rem);
     display: flex;
     align-items: center;
     text-align: left;
@@ -314,6 +314,8 @@ body {
 .chosen-types img {
     height: 32px;
     width: 32px;
+    border-radius: 50%;
+    border: 3px solid hsl(from var(--tertiary-color) calc(h - 50) calc(s + 10) calc(l + 15));
 }
 
 /* ----------------------------------------------------- MULTIPLE CHOICE -------------------------------------------------------- */
@@ -330,7 +332,7 @@ body {
     font-optical-sizing: auto;
     font-weight: 350;
     font-style: normal;
-    font-size: min(100%, 1.8rem);
+    font-size: clamp(0.8rem, 1vw + 0.1rem, 1.8rem);
     background-color: hsl(from var(--white) h s calc(l + 30));
     color: var(--black);
     display: flex;
@@ -362,6 +364,7 @@ body {
     width: clamp(3rem, 10vw, 5rem);
     height: clamp(3rem, 10vw, 5rem);
     border-radius: 50%;
+    background-color: white;
     transition: box-shadow 0.15s ease-in, transform 0.2s ease-in-out;
 }
 
@@ -375,17 +378,17 @@ body {
     transform: scale(1.2);
 }
 
-.choice:has(.choice-checker:enabled) .choice-blueprint:hover .choice-icon,
+.choice:not(.clear-all):has(.choice-checker:enabled) .choice-blueprint:hover .choice-icon,
 .choice:has(.choice-checker:checked) .choice-icon {
     transform: scale(1.05);
     box-shadow: 0 0.5rem 1rem 0.1rem hsl(from var(--black) h s l / 40%);
-    border: 3px solid hsl(from var(--tertiary-color) calc(h - 10) calc(s + 20) calc(l + 15));
+    border: 3px solid hsl(from var(--tertiary-color) calc(h - 50) calc(s + 20) calc(l + 15));
 }
 
 .choice:not(.clear-all):has(.choice-checker:enabled) .choice-blueprint:hover,
 .choice:not(.clear-all):has(.choice-checker:checked) .choice-blueprint {
-    border: 3px solid hsl(from var(--tertiary-color) calc(h - 10) calc(s + 20) calc(l + 15));
-    box-shadow: 0 0 2rem 1rem hsl(from var(--tertiary-color) calc(h - 10) calc(s + 30) calc(l + 20) / 40%) inset;
+    border: 3px solid hsl(from var(--tertiary-color) calc(h - 50) calc(s + 20) calc(l + 15));
+    box-shadow: 0 0 2rem 1rem hsl(from var(--tertiary-color) calc(h - 50) calc(s + 30) calc(l + 20) / 40%) inset;
 }
 
 .clear-all:has(.choice-checker:enabled) .choice-blueprint:hover {
