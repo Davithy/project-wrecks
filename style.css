@@ -199,6 +199,7 @@ body {
     border-radius: 1rem;
     background-color: var(--primary-color);
     color: var(--white);
+    transition: border-radius 0.2s ease-in;
 }
 
 .nav-connector,
@@ -242,6 +243,7 @@ body {
     text-align: left;
     background-color: var(--primary-color);
     z-index: 5;
+    transition: border-radius 0.2s ease-in;
 }
 
 .name-pnl {
@@ -256,7 +258,7 @@ body {
     opacity: 0;
     visibility: hidden;
     min-width: 100%;
-    transition: height 0.2s ease-in, opacity 0.2s, top 0.3s ease-in-out, visibility 1s;
+    transition: height 0.2s ease-in, opacity 0.2s, top 0.3s ease-in-out, visibility 1s, border-radius 0.2s ease-in;
     z-index: 4;
 }
 
