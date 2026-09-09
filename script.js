@@ -1,9 +1,12 @@
-// Submission includes all choiceProfiles. if 1 choiceProfile has no type, it is not considered "complete".
+Fancybox.bind("[data-fancybox]", {
+})
 
 // total global vars
 let activeIndex = 0;
+const user = document.querySelector("#name-inp");
 const submitBtn = document.querySelector(".submission-btn");
-
+const resultBtn = document.querySelector(".results-btn");
+const url = "http://localhost:3000/submission";
 
 // name dropdown vars
 const nameMenu = document.querySelector('.name-menu');
@@ -72,12 +75,31 @@ function clearAll() {
 // As it says, submits the form to back end
 function formSubmit() {
     if (choiceProfile.every(cbox => cbox.complete == true)) {
-        console.log("You're all done now! Congratulations!");
-        console.log(choiceProfile);
+        // Testing purposes --console.log("You're all done now! Congratulations!");
+        submitBtn.querySelector('.submission-check').dataset.src = "#submission-complete";
     } else {
-        window.alert("Some folks are still missing a type!")
-        console.log(choiceProfile);
+        return;
+        // Testing purposes --console.log(choiceProfile);
     }
+}
+
+function nameCheck() {
+    const nameVal = user.value;
+    if (!nameVal) { return; }
+    console.log(nameVal);
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json' 
+        },
+        body: JSON.stringify({
+            submitter: nameVal,
+            profiles: choiceProfile
+        })
+    })
+    .then (() => {
+        window.location.href = "results/";
+    });
 }
 
 // DROPDOWN NAME PICKER CODE
@@ -136,3 +158,4 @@ clearAll();
 indexCheck();
 
 submitBtn.onclick = formSubmit;
+resultBtn.onclick = nameCheck;

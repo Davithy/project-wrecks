@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Rubik+Mono+One&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.umd.js"></script>
 </head>
 
 <body>
@@ -213,9 +215,22 @@
         <!-- GAP BETWEEN DROPDOWN AND SUBMISSION BUTTON -->
 
         <section class="submission-btn">
-            <button class="submission-check">
+            <button class="submission-check"
+            data-fancybox data-src="#submission-incomplete">
                 <span>Submit!</span>
             </button>
+            <div class="hidden" id="submission-complete">
+                <p style="grid-area: fin-txt">Thank you so much for taking the time to fill this in!</p>
+                <span class="submission-inp" style="grid-area: name-inp">
+                    <input type="text" id="name-inp" name="name" required>
+                    <button class="results-btn">
+                        <span>To the results!</span>
+                    </button>
+                </span>
+            </div>
+            <div class="hidden" id="submission-incomplete">
+                <p>Uh oh! Looks like folks are still missing some types!</p>
+            </div>
         </section>
 
         <!-- GAP BETWEEN SUBMISSION AND CHECKBOX GRID -->
@@ -405,7 +420,7 @@
             </div>
         </section>
     </main>
-
+    
     <footer>
     </footer>
     <script src="script.js"></script>
