@@ -84,9 +84,11 @@ function formSubmit() {
 }
 
 function nameCheck() {
+    const cleanProfile = choiceProfile.slice(1);
+    // Testing purposes --console.log(cleanProfile);
     const nameVal = user.value;
     if (!nameVal) { return; }
-    console.log(nameVal);
+    // Testing purposes --console.log(nameVal);
     fetch(url, {
         method: 'POST',
         headers: {
@@ -94,7 +96,7 @@ function nameCheck() {
         },
         body: JSON.stringify({
             submitter: nameVal,
-            profiles: choiceProfile
+            profiles: cleanProfile
         })
     })
     .then (() => {

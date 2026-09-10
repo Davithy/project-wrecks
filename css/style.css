@@ -483,3 +483,22 @@ body {
 }
 
 /* ---------------------------------------------------------------------- RESULTS ------------------------------------------------------------------------- */
+
+.results {
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+}
+
+.results-table {
+    width: 100%;
+    overflow-x: scroll;
+}
+
+.results-resources {
+    text-align: center;
+}
+
+.tabulator {
+    background-color: var(--black);
+}

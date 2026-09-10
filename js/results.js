@@ -1,39 +1,78 @@
+Fancybox.bind("[data-fancybox]", {
+})
 
-<label>List of Wrecks:</label>
-<select id="name-brains">
-    <option selected disabled hidden>None Selected</option>
-    <option data-option=Justin>Justin</option>
-    <option data-option=Bryan>Bryan</option>
-    <option data-option=Cassie>Cassie</option>
-    <option data-option=Jared>Jared</option>
-    <option data-option=Leo>Leo</option>
-    <option data-option=Aron>Aron</option>
-    <option data-option=Khoa>Khoa</option>
-    <option data-option=Andre>Andre</option>
-    <option data-option=Rini>Rini</option>
-    <option data-option=Lyndon>Lyndon</option>
-    <option data-option=Rhyme>Rhyme</option>
-    <option data-option=Daria>Daria</option>
-    <option data-option=Nabeeha>Nabeeha</option>
-    <option data-option=Sophia>Sophia</option>
-    <option data-option=Danny>Danny</option>
-    <option data-option=Brandon>Brandon</option>
-    <option data-option=Minh>Minh</option>
-    <option data-option=Akari>Akari</option>
-    <option data-option=Alisha>Alisha</option>
-    <option data-option=Han>Han</option>
-    <option data-option=Blair>Blair</option>
-    <option data-option=Jupiter>Jupiter</option>
-    <option data-option=Hannah>Hannah</option>
-    <option data-option=Evee>Evee</option>
-    <option data-option=Jennifer>Jennifer</option>
-    <option data-option=Brianna>Brianna</option>
-    <option data-option=Alex>Alex</option>
-</select>
+const url = "http://localhost:3000/submission";
 
+async function dataFetch() {
+    try {
+        const response = await fetch(url);
+        if (response.ok) {
+            const data = await response.json();
+            return data;
+            // console.log(data[0].submitter);
+            // console.log(data[0].profiles);
+        } else {
+            throw new Error('Failed to fetch data');
+        }
+    } catch (error) {
+        console.error('ERROR: ', error);
+    }
+};
 
+async function valueFormatter() {
+    const resultTable = document.querySelector('.results-table');
 
-                
+    const resultData = await dataFetch();
+    const submissions = resultData;
+    const resultTypes = ["","Normal", "Fire", "Water", "Electric", "Grass", "Ice", "Fighting", "Poison", "Ground", "Flying", "Psychic", "Bug", "Rock", "Ghost", "Dragon", "Dark", "Steel", "Fairy", "Unsure"]; //columns
+    const resultNames = (submissions[0].profiles.map(profile => profile.name)); //rows
+
+    const tester = typeCounter(submissions, resultNames, resultTypes);
+    console.log(tester);
+
+    const profiles = submissions.flatMap(e => e.profiles);
+
+    tableBuilder(tester);
+}
+
+function typeCounter(submissions, names, types) {
+    const count = {};
+
+    names.forEach(name => {
+        count[name] = {};
+        types.forEach(type => {
+            count[name][type] = 0;
+        });
+    });
+
+    submissions.forEach(submission => {
+        submission.profiles.forEach((profile, index) => {
+            const name = names[index];
+            // console.log(name);
+            profile.types.forEach(typeVal => {
+                const type = typeVal.charAt(0).toUpperCase() + typeVal.slice(1);
+                if (count[name] && count[name][type] !== undefined) {
+                    count[name][type]++;
+                }
+            });
+        });
+    });
+
+    return count;
+}
+
+function tableBuilder(submissions) {
+    var table = new Tabulator("#final-results", {
+        height: "50vh",
+        placeholder: "Loading...",
+        data: submissions,
+        autoColumns: true,
+        rowHeader:{field:"name", frozen: true},
+    });
+}
+
+valueFormatter();
+
 // BEFORE USING TABULATOR
 
 // async function tableBuilder() {
