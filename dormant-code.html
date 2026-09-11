@@ -116,3 +116,63 @@
 
 // tableBuilder();
 
+
+async function valueFormatter() {
+    const resultTable = document.querySelector('.results-table');
+
+    const resultData = await dataFetch();
+    const submissions = resultData;
+    const resultNames = (submissions[0].profiles.map(profile => profile.name)); //rows
+    const resultTypes = ["","Normal", "Fire", "Water", "Electric", "Grass", "Ice", "Fighting", "Poison", "Ground", "Flying", "Psychic", "Bug", "Rock", "Ghost", "Dragon", "Dark", "Steel", "Fairy", "Unsure"]; //columns
+
+    const typeCounts = {};
+    resultNames.forEach(name => {
+        typeCounts[name] = {};
+        resultTypes.forEach(type => {
+            if (type !== "") {
+            typeCounts[name][type] = 0
+            };
+        });
+    })
+
+    submissions.forEach(submission => {
+        submission.profiles.forEach((profile, index) => {
+            const name = resultNames[index];
+            profile.types.forEach(typeVal => {
+                const type = typeVal.charAt(0).toUpperCase() + typeVal.slice(1);
+                if (typeCounts[name] && typeCounts[name][type] !== undefined) {
+                    typeCounts[name][type]++;
+                }
+            });
+        });
+    });
+
+    const tableData = Object.entries(typeCounts).map(([name,typeCounts]) => ({name, ...typeCounts}));
+
+    tableBuilder(tableData, resultTypes);
+
+}
+
+function tableBuilder(submissions, types) {
+    var table = new Tabulator("#final-results", {
+        height: "50vh",
+        placeholder: "Loading...",
+        data: submissions,
+        rowHeader:{field:"name", frozen: true},
+        columns: types
+            .filter(type => type !== "")
+            .map(type => ({ title: type, field: type, hozAlign: "center" }))
+    });
+}
+
+function colorCoder(typeCounts) {
+    let max = 0;
+    Object.values(typeCounts).forEach(nameCounts => {
+        Object.values(nameCounts).forEach(count => {
+            if (count > max) max = count;
+        })
+    })
+    console.log(max)
+}
+
+valueFormatter();

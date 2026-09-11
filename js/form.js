@@ -17,7 +17,7 @@ const optionList = namePnl.querySelectorAll('.name-opt');
 const completionState = nameMenu.querySelector('.name-opt img');
 const options = namePnl.querySelectorAll('.name-opt h3');
 const optionsArr = Array.from(options);
-const scQuery = window.matchMedia("(min-width: 1101px)");
+const scQuery = window.matchMedia("(min-width: 1201px)");
 
 // checkbox grid vars
 const typeChoice = document.querySelectorAll('.choice .choice-checker');

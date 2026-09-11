@@ -100,6 +100,13 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    min-height: 100vh;
+    min-height: 100svh;
+    min-height: 100dvh;
+}
+
+footer {
+    flex-shrink: 0;
 }
 
 /* --------------------------------------------------------------------- QUESTIONNAIRE FORM -------------------------------------------------------------------- */
@@ -209,6 +216,24 @@ body {
         border-radius: 0.5rem 0 0 0.5rem;
         padding: 0 1rem;
     }
+
+    .results-table {
+        width: 100%
+    }
+
+    #final-results {
+        max-height: 50rem;
+        border-radius: 1rem;
+        font-size: clamp(1.0rem, 1vw + 0.3rem, 2.4rem);
+        flex-direction: column;
+        overflow: scroll;
+        overflow-x: scroll;
+    }
+
+    .typeHeader {
+        min-width: 12rem;
+        text-align: center;
+    }
 }
 
 @media screen and (max-width: 1200px) { 
@@ -246,6 +271,23 @@ body {
         display:flex;
         flex-direction: column;
         place-items: center;
+    }
+
+    .results-table {
+        max-width: 110%;
+    }
+
+    #final-results {
+        max-height: 35rem;
+        border-radius: 1rem;
+        font-size: clamp(0.9rem, 1vw + 0.1rem, 1.5rem);
+        flex-direction: column;
+        overflow: scroll;
+        overflow-x: scroll;
+    }
+
+    .typeHeader {
+        min-width: 2.5rem;
     }
 }
 
@@ -292,7 +334,9 @@ body {
 .name-opt,
 .choice:has(.choice-checker:enabled) .choice-blueprint:hover,
 .submission-check,
-.results-btn {
+.results-btn,
+.nameRow:hover,
+.nameRow:hover .nameHeader {
     cursor: pointer;
 }
 
@@ -485,20 +529,140 @@ body {
 /* ---------------------------------------------------------------------- RESULTS ------------------------------------------------------------------------- */
 
 .results {
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     place-items: center;
+    padding: 2rem;
+    gap: 1rem;
+    width: 100%;
 }
 
-.results-table {
-    width: 100%;
-    overflow-x: scroll;
+.results-title {
+    font-family: "Rubik Mono One", monospace;
+    font-weight: 400;
+    font-style: normal;
+    font-size: clamp(1rem, 1vw + 0.8rem, 2.6rem);
+    text-align: center;
 }
 
 .results-resources {
     text-align: center;
 }
 
-.tabulator {
+.results-resources h1 {
+    font-size: min(10vw, 1.7rem)
+}
+
+.dataTable {
     background-color: var(--black);
+    text-align: left;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.typeRow {
+    /* full row */
+}
+
+.typeHeader {
+    position: sticky;
+    top: 0;
+    z-index: 6;
+    font-family: "Rubik Mono One", monospace;
+    font-weight: 400;
+    font-style: normal;
+    background-color: var(--primary-color);
+    padding: 0.5rem 0;
+}
+
+.typeLabel {
+    display: flex;
+    place-content: center;
+    width: 100%;
+}
+
+.typeImg {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 3px solid var(--white);
+}
+
+.nameRow:hover,
+.nameRow:nth-child(even):hover {
+    background-color: hsl(from var(--secondary-color) h s l / 50%);
+}
+
+.nameRow:hover .nameHeader,
+.typeData:hover {
+    background-color: hsl(from var(--secondary-color) h calc( s - 20) calc( l - 10));
+    color: var(--black);
+}
+
+.dataLabel {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: min(1vh, 1rem);
+}
+
+.nameHeader {
+    font-family: "Rubik Mono One", monospace;
+    font-weight: 400;
+    font-style: normal;
+    left: 0;
+    z-index: 5;
+    padding: 0 1rem;
+    box-shadow: 0.1rem 0px var(--white);
+    background-color: var(--black);
+    position: sticky;
+}
+
+.typeData {
+    position: relative;
+    z-index: 1;
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    width: 100%;
+}
+
+.nameRow:nth-child(even) {
+    background-color: hsl(from var(--black) h calc( s - 35 ) calc( l + 5 ))
+}
+
+.results-body {
+    flex-direction: column;
+}
+
+.footer {
+    font-family: "Rubik", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    color: var(--white);
+    font-size: 1.2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-bottom: calc(22px + env(safe-area-inset-bottom, 0px));
+    padding-inline: max(clamp(20px, 5vw, 44px), calc((10%)/2));
+    width: 100%;
+}
+
+.footer a {
+    text-decoration: none;
+    color: var(--white);
+    transition: all 0.3s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .footer a:hover {
+        text-decoration: none;
+        color: hsl(from var(--tertiary-color) h calc( s + 35 ) calc( l + 5 ));
+        font-size: 1.5rem;
+    }
 }
