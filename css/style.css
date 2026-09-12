@@ -147,6 +147,12 @@ footer {
     visibility: hidden;
 }
 
+.tooltip,
+.tooltip div,
+.tooltip div p {
+    pointer-events: none;
+}
+
 .submission-btn {
     position: relative;
     grid-area: submission-btn;
