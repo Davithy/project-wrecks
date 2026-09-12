@@ -50,9 +50,6 @@ async function tableBuilder() {
         const typeHeader = document.createElement('th');
             typeHeader.classList.add("typeHeader");
             
-        if (scQuery.matches) {
-            typeHeader.appendChild(document.createTextNode(type));
-        } else {
             const typeLabel = document.createElement('label');
                 typeLabel.classList.add("typeLabel");
             const typeImg = document.createElement('img');
@@ -68,7 +65,6 @@ async function tableBuilder() {
                 typeLabel.appendChild(typeImg);
             }
             typeHeader.appendChild(typeLabel);
-        }
         typeRow.appendChild(typeHeader);
     });
     table.appendChild(typeRow);

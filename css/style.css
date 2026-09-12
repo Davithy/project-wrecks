@@ -137,186 +137,6 @@ footer {
     background: var(--white);
 }
 
-@media screen and (min-width: 1201px) { 
-    .questionnaire {
-        display: grid;
-        padding: 0 5rem;
-        gap: 3rem;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-areas:
-        "name-menu choice-container choice-container"
-        "submission-btn choice-container choice-container";
-        justify-items: stretch;
-        align-items: center;
-    }
-
-    .name-menu {
-        display: flex;
-        align-items: stretch;
-        justify-content: center;
-        transform: translateY(clamp(160px, 2em, 640px));
-        transition: transform 0.2s ease-in;
-    }
-
-    .name-menu:has(#nav-check:checked) {
-        transform: translateY(0);
-    }
-
-    .name-menu:has(#nav-check:checked) .name-btn {
-        border-radius: 1rem 1rem 0px 0px;
-    }
-
-    .name-menu:has(#nav-check:checked) ~ .submission-btn .submission-check {
-        border-radius: 0px 0px 1rem 1rem;
-    }
-
-    .name-menu:has(#nav-check:checked) .name-pnl {
-        border-radius: 0px;
-    }
-
-    .submission-btn {
-        display: flex;
-        align-items: stretch;
-        justify-content: center;
-        transform: translateY(clamp(-160px, -2em, -640px));
-        transition: transform 0.2s ease-in;
-    }
-
-    .name-menu:has(#nav-check:checked) ~ .submission-btn {
-        transform: translateY(0);
-    }
-
-    .choice-container {
-        padding: 2rem;
-    }
-
-    #submission-complete {
-        display: grid;
-        gap: 1rem;
-        grid-template-areas: 
-        "fin-txt"
-        "name-inp";
-        padding-bottom: 2.5rem;
-    }
-
-    .submission-inp {
-        display:flex;
-    }
-
-    .results-btn {
-        font-family: "Rubik", sans-serif;
-        font-optical-sizing: auto;
-        font-weight: 500;
-        height: 3.3rem;
-        font-style: normal;
-        border-radius: 0 0.5rem 0.5rem 0;
-        display: flex;
-        place-items: center;
-        padding: 1rem;
-        background-color: var(--primary-color);
-        color: var(--white);
-    }
-
-    #name-inp {
-        border-radius: 0.5rem 0 0 0.5rem;
-        padding: 0 1rem;
-    }
-
-    .results-table {
-        width: 100%
-    }
-
-    #final-results {
-        max-height: 50rem;
-        border-radius: 1rem;
-        font-size: clamp(1.0rem, 1vw + 0.3rem, 2.4rem);
-        flex-direction: column;
-        overflow: scroll;
-        overflow-x: scroll;
-    }
-
-    .typeHeader {
-        min-width: 12rem;
-        text-align: center;
-    }
-
-    .tooltip {
-    top: -11vh;
-    }
-    
-    .tooltip::after {
-        content: "";
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        margin-left: -5px;
-        border-width: 5px;
-        border-style: solid;
-        border-color: var(--black) transparent transparent transparent;
-    }
-}
-
-@media screen and (max-width: 1200px) { 
-    .questionnaire {
-        display: grid;
-        padding: 1rem;
-        gap: 1rem;
-        grid-template-areas:
-        "name-menu"
-        "choice-container"
-        "choice-container"
-        "submission-btn";
-    }
-
-    .results-btn {
-        font-family: "Rubik", sans-serif;
-        font-optical-sizing: auto;
-        font-weight: 500;
-        height: 3.3rem;
-        font-style: normal;
-        border-radius: 0.5rem;
-        display: flex;
-        place-items: center;
-        padding: 1rem;
-        background-color: var(--primary-color);
-        color: var(--white);
-    }
-
-    #name-inp {
-        border-radius: 0.5rem;
-        padding: 0.5rem 1rem;
-    }
-
-    .submission-inp {
-        display:flex;
-        flex-direction: column;
-        place-items: center;
-    }
-
-    .results-table {
-        max-width: 110%;
-    }
-
-    #final-results {
-        max-height: 35rem;
-        border-radius: 1rem;
-        font-size: clamp(0.9rem, 1vw + 0.1rem, 1.5rem);
-        flex-direction: column;
-        overflow: scroll;
-        overflow-x: scroll;
-    }
-
-    .typeHeader {
-        min-width: 2.5rem;
-    }
-
-    .tooltip {
-        left: 25%;
-        bottom: 3rem;
-        width: 50%;
-    }
-}
-
 .tooltip-check,
 .dropdown-check,
 .choice-checker {
@@ -626,20 +446,13 @@ footer {
     font-weight: 400;
     font-style: normal;
     background-color: var(--primary-color);
-    padding: 0.5rem 0;
+    padding: 0.5rem 0 1rem 0;
 }
 
 .typeLabel {
     display: flex;
     place-content: center;
-    width: 100%;
-}
-
-.typeImg {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: 3px solid var(--white);
+    width: 7rem;
 }
 
 .nameRow:hover,
@@ -680,7 +493,14 @@ footer {
     font-optical-sizing: auto;
     font-weight: 300;
     font-style: normal;
-    width: 100%;
+}
+
+.typeImg {
+    width: rem;
+    height: 5rem;
+    border-radius: 50%;
+    background: var(--white);
+    border: 0.5rem solid var(--white);
 }
 
 .nameRow:nth-child(even) {
@@ -718,5 +538,191 @@ footer {
         text-decoration: none;
         color: hsl(from var(--tertiary-color) h calc( s + 35 ) calc( l + 5 ));
         font-size: 1.5rem;
+    }
+}
+
+
+@media screen and (min-width: 1201px) { 
+    .questionnaire {
+        display: grid;
+        padding: 0 5rem;
+        gap: 3rem;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-areas:
+        "name-menu choice-container choice-container"
+        "submission-btn choice-container choice-container";
+        justify-items: stretch;
+        align-items: center;
+    }
+
+    .name-menu {
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+        transform: translateY(clamp(160px, 2em, 640px));
+        transition: transform 0.2s ease-in;
+    }
+
+    .name-menu:has(#nav-check:checked) {
+        transform: translateY(0);
+    }
+
+    .name-menu:has(#nav-check:checked) .name-btn {
+        border-radius: 1rem 1rem 0px 0px;
+    }
+
+    .name-menu:has(#nav-check:checked) ~ .submission-btn .submission-check {
+        border-radius: 0px 0px 1rem 1rem;
+    }
+
+    .name-menu:has(#nav-check:checked) .name-pnl {
+        border-radius: 0px;
+    }
+
+    .submission-btn {
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+        transform: translateY(clamp(-160px, -2em, -640px));
+        transition: transform 0.2s ease-in;
+    }
+
+    .name-menu:has(#nav-check:checked) ~ .submission-btn {
+        transform: translateY(0);
+    }
+
+    .choice-container {
+        padding: 2rem;
+    }
+
+    #submission-complete {
+        display: grid;
+        gap: 1rem;
+        grid-template-areas: 
+        "fin-txt"
+        "name-inp";
+        padding-bottom: 2.5rem;
+    }
+
+    .submission-inp {
+        display:flex;
+    }
+
+    .results-btn {
+        font-family: "Rubik", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 500;
+        height: 3.3rem;
+        font-style: normal;
+        border-radius: 0 0.5rem 0.5rem 0;
+        display: flex;
+        place-items: center;
+        padding: 1rem;
+        background-color: var(--primary-color);
+        color: var(--white);
+    }
+
+    #name-inp {
+        border-radius: 0.5rem 0 0 0.5rem;
+        padding: 0 1rem;
+    }
+
+    .results-table {
+        width: 100%
+    }
+
+    #final-results {
+        max-height: 50rem;
+        border-radius: 1rem;
+        font-size: clamp(1.0rem, 1vw + 0.3rem, 2.4rem);
+        flex-direction: column;
+        overflow: scroll;
+        overflow-x: scroll;
+    }
+
+    .tooltip {
+    top: -11vh;
+    }
+    
+    .tooltip::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: var(--black) transparent transparent transparent;
+    }
+}
+
+@media screen and (max-width: 1200px) { 
+    .questionnaire {
+        display: grid;
+        padding: 1rem;
+        gap: 1rem;
+        grid-template-areas:
+        "name-menu"
+        "choice-container"
+        "choice-container"
+        "submission-btn";
+    }
+
+    .results-btn {
+        font-family: "Rubik", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 500;
+        height: 3.3rem;
+        font-style: normal;
+        border-radius: 0.5rem;
+        display: flex;
+        place-items: center;
+        padding: 1rem;
+        background-color: var(--primary-color);
+        color: var(--white);
+    }
+
+    #name-inp {
+        border-radius: 0.5rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .submission-inp {
+        display:flex;
+        flex-direction: column;
+        place-items: center;
+    }
+
+    .results-table {
+        max-width: 110%;
+    }
+
+    #final-results {
+        max-height: 35rem;
+        border-radius: 1rem;
+        font-size: clamp(0.9rem, 1vw + 0.1rem, 1.5rem);
+        flex-direction: column;
+        overflow: scroll;
+        overflow-x: scroll;
+    }
+
+    .typeHeader {
+        min-width: 2.5rem;
+    }
+
+    .tooltip {
+        left: 25%;
+        bottom: 3rem;
+        width: 50%;
+    }
+
+    .typeLabel {
+        width: 3rem;
+    }
+
+    .typeImg {
+        width: 32px;
+        height: 32px;
+        border: 3px solid var(--white);
     }
 }
