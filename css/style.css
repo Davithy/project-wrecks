@@ -641,7 +641,7 @@ footer {
     }
 
     .tooltip {
-    top: -11vh;
+        top: -11vh;
     }
     
     .tooltip::after {
@@ -666,6 +666,9 @@ footer {
         "choice-container"
         "choice-container"
         "submission-btn";
+    }
+    .multiple-choice {
+        gap: 0.2rem;
     }
 
     .results-btn {
@@ -708,6 +711,7 @@ footer {
 
     .typeHeader {
         min-width: 2.5rem;
+        padding: 0.5rem 0;
     }
 
     .tooltip {
