@@ -18,15 +18,15 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
-<body>
+<body class="distance">
     <header>
         <nav>
             <div class="logo">
-                
-                <img>
             </div>
         </nav>
     </header>
+
+    <span></span>
 
     <main class="questionnaire">
         <section class="name-menu">
@@ -215,6 +215,12 @@
                     </li>
                 </ul>
             </nav>
+            <input type="checkbox" id="tooltip-check" class="tooltip-check">
+            <label for="tooltip-check" class="tooltip">
+                <div>
+                    <p>Don't be shy! If you think it fits, pick more than 2 types per person!</p>
+                </div>
+            </label>
         </section>
 
         <!-- GAP BETWEEN DROPDOWN AND SUBMISSION BUTTON -->
@@ -237,9 +243,6 @@
                 <p>Uh oh! Looks like folks are still missing some types!</p>
             </div>
         </section>
-        <div class="tooltip">
-            <p>Don't be shy! Pick more than just 2 per person!</p>
-        </div>
 
         <!-- GAP BETWEEN SUBMISSION AND CHECKBOX GRID -->
 
@@ -429,7 +432,11 @@
         </section>
     </main>
     
-    <footer>
+    <footer class="footer distancing">
+        <section>
+            <h3>Already filled out the form?</h3>
+            <a href="results/">Head to the results!</a>
+        </section>
     </footer>
     <script src="js/form.js"></script>
 </body>

@@ -13,6 +13,7 @@ async function dataWrite(submitter, profile) {
             submitter: submitter,
             profiles: profile
         }])
+        .upsert({submitter: submitter}, {onConflict: submitter})
         .select()
 
     if (error) {
@@ -41,6 +42,8 @@ const scQuery = window.matchMedia("(min-width: 1201px)");
 // checkbox grid vars
 const typeChoice = document.querySelectorAll('.choice .choice-checker');
 const clearChoice = document.querySelector('.clear-all .choice-checker');
+
+const tooltipTeaser = document.querySelector('.tooltip-check');
 
 const choiceProfile = optionsArr.map((option, index) => ({
     id: index,
@@ -102,6 +105,7 @@ function formSubmit() {
     }
 }
 
+// WRITES TO SUPABASE
 async function nameCheck() {
     const cleanProfile = choiceProfile.slice(1);
     // Testing purposes --console.log(cleanProfile);
@@ -111,21 +115,19 @@ async function nameCheck() {
         .then (() => {
         window.location.href = "results/";
     });
+}
 
-    // Testing purposes --console.log(nameVal);
-    // fetch(url, {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json' 
-    //     },
-    //     body: JSON.stringify({
-    //         submitter: nameVal,
-    //         profiles: cleanProfile
-    //     })
-    // })
-    // .then (() => {
-    //     window.location.href = "results/";
-    // });
+// BRINGS UP TOOLTIP IF TOO MANY PEOPLE HAVE ONLY 2 TYPES
+function typeTeaser(choiceProfile) {
+    const lilTyped = choiceProfile.filter(profile =>
+        profile.types.length >= 1 && profile.types.length <= 2
+    );
+
+    const manyTyped = choiceProfile.filter(profile =>
+        profile.types.length >= 3
+    );
+
+    return lilTyped.length >= 4 && manyTyped.length === 0;
 }
 
 // DROPDOWN NAME PICKER CODE
@@ -167,6 +169,8 @@ typeChoice.forEach(checkbox => {
             // Testing purposes --console.log(choiceProfile[activeIndex].types);
         }
         choiceProfile[activeIndex].complete = Array.from(typeChoice).some(cbox => cbox.checked);
+
+        tooltipTeaser.checked = typeTeaser(choiceProfile);
         // Testing purposes --console.log(choiceProfile[activeIndex]);
         progressStatus();
     })

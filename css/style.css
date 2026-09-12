@@ -95,6 +95,7 @@ figcaption {
 /* -------------------------------------------------------------------- GLOBAL DECLARATIONS ----------------------------------------------------------------------- */
 
 body {
+    flex-direction: column;
     background: hsl(from var(--accent-color) h s calc(l - 13));
     color: var(--white);
     display: flex;
@@ -103,6 +104,10 @@ body {
     min-height: 100vh;
     min-height: 100svh;
     min-height: 100dvh;
+}
+
+.distance {
+    gap: 2rem;
 }
 
 footer {
@@ -234,12 +239,27 @@ footer {
         min-width: 12rem;
         text-align: center;
     }
+
+    .tooltip {
+    top: -11vh;
+    }
+    
+    .tooltip::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: var(--black) transparent transparent transparent;
+    }
 }
 
 @media screen and (max-width: 1200px) { 
     .questionnaire {
         display: grid;
-        padding: 2rem;
+        padding: 1rem;
         gap: 1rem;
         grid-template-areas:
         "name-menu"
@@ -289,22 +309,31 @@ footer {
     .typeHeader {
         min-width: 2.5rem;
     }
+
+    .tooltip {
+        left: 25%;
+        bottom: 3rem;
+        width: 50%;
+    }
 }
 
+.tooltip-check,
 .dropdown-check,
 .choice-checker {
     position: absolute;
     width: 1px;
     height: 1px;
     overflow: hidden;
+    visibility: hidden;
 }
 
 .submission-btn {
+    position: relative;
     grid-area: submission-btn;
     font-family: "Rubik Mono One", monospace;
     font-weight: 400;
     font-style: normal;
-    z-index: 10;
+    z-index: 9;
     font-size: clamp(0.8rem, 1vw + 0.2rem, 1.8rem);
 }
 
@@ -340,6 +369,29 @@ footer {
     cursor: pointer;
 }
 
+.tooltip {
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    text-align: center;
+    font-size: clamp(1.3rem, 1vw + 0.1rem, 2.6rem);
+    border-radius: 1rem;
+    display: flex;
+    position: fixed;
+    z-index: 2000;
+    background-color: var(--black);
+    padding: 0.5rem;
+    text-wrap: balance;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.name-menu:has(.tooltip-check:checked) .tooltip {
+    opacity: 1;
+}
+
+
 /* ----------------------------------------------------------------------- DROPDOWN MENU ------------------------------------------------------------------------- */
 
 .nav-connector {
@@ -351,6 +403,7 @@ footer {
 }
 
 .name-menu { 
+    position: relative;
     grid-area: name-menu;
     font-family: "Rubik Mono One", monospace;
     font-weight: 400;
@@ -561,9 +614,9 @@ footer {
     border-collapse: collapse;
 }
 
-.typeRow {
-    /* full row */
-}
+/* .typeRow {
+    full row
+} */
 
 .typeHeader {
     position: sticky;
@@ -634,15 +687,12 @@ footer {
     background-color: hsl(from var(--black) h calc( s - 35 ) calc( l + 5 ))
 }
 
-.results-body {
-    flex-direction: column;
-}
-
 .footer {
     font-family: "Rubik", sans-serif;
     font-optical-sizing: auto;
     font-weight: 500;
     font-style: normal;
+    text-align: center;
     color: var(--white);
     font-size: 1.2rem;
     display: flex;
@@ -651,6 +701,10 @@ footer {
     padding-bottom: calc(22px + env(safe-area-inset-bottom, 0px));
     padding-inline: max(clamp(20px, 5vw, 44px), calc((10%)/2));
     width: 100%;
+}
+
+.distancing {
+    padding-top: 6rem;
 }
 
 .footer a {
