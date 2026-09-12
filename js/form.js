@@ -1,12 +1,31 @@
 Fancybox.bind("[data-fancybox]", {
 })
 
+const url = "https://tclzvnzmcqclngrsekfo.supabase.co";
+const public_api = "sb_publishable_cM6Vc142F4i-KjpCnX_MeA_y_H6prOz";
+
+const supabaseClient = supabase.createClient(url, public_api);
+
+async function dataWrite(submitter, profile) {
+    const { data, error } = await supabaseClient
+        .from('wreckSubmissions')
+        .insert([{
+            submitter: submitter,
+            profiles: profile
+        }])
+        .select()
+
+    if (error) {
+        console.log(error);
+        throw error;
+    }
+};
+
 // total global vars
 let activeIndex = 0;
 const user = document.querySelector("#name-inp");
 const submitBtn = document.querySelector(".submission-btn");
 const resultBtn = document.querySelector(".results-btn");
-const url = "http://localhost:3000/submission";
 
 // name dropdown vars
 const nameMenu = document.querySelector('.name-menu');
@@ -83,25 +102,30 @@ function formSubmit() {
     }
 }
 
-function nameCheck() {
+async function nameCheck() {
     const cleanProfile = choiceProfile.slice(1);
     // Testing purposes --console.log(cleanProfile);
     const nameVal = user.value;
     if (!nameVal) { return; }
-    // Testing purposes --console.log(nameVal);
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json' 
-        },
-        body: JSON.stringify({
-            submitter: nameVal,
-            profiles: cleanProfile
-        })
-    })
-    .then (() => {
+    dataWrite(nameVal, cleanProfile)
+        .then (() => {
         window.location.href = "results/";
     });
+
+    // Testing purposes --console.log(nameVal);
+    // fetch(url, {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json' 
+    //     },
+    //     body: JSON.stringify({
+    //         submitter: nameVal,
+    //         profiles: cleanProfile
+    //     })
+    // })
+    // .then (() => {
+    //     window.location.href = "results/";
+    // });
 }
 
 // DROPDOWN NAME PICKER CODE

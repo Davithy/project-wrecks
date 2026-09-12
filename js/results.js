@@ -1,25 +1,25 @@
 Fancybox.bind("[data-fancybox]", {
 })
 
-const url = "http://localhost:3000/submission";
+// const url = "http://localhost:3000/submission";
+const url = "https://tclzvnzmcqclngrsekfo.supabase.co";
+const public_api = "sb_publishable_cM6Vc142F4i-KjpCnX_MeA_y_H6prOz";
+
+const supabaseClient = supabase.createClient(url, public_api);
 const scQuery = window.matchMedia("(min-width: 1201px)");
 
 async function dataFetch() {
-    try {
-        const response = await fetch(url);
-        if (response.ok) {
-            const data = await response.json();
-            return data;
-            // console.log(data[0].submitter);
-            // console.log(data[0].profiles);
-        } else {
-            throw new Error('Failed to fetch data');
-        }
-    } catch (error) {
-        console.error('ERROR: ', error);
+    const { data, error } = await supabaseClient
+        .from('wreckSubmissions')
+        .select('*');
+    if (error) {
+        console.log(error);
+        throw error;
+    }
+    if (data) {
+        return data;
     }
 };
-
 
 async function tableBuilder() {
     const resultTable = document.querySelector('#final-results');
