@@ -1,13 +1,18 @@
 Fancybox.bind("[data-fancybox]", {
 })
 
-// const url = "http://localhost:3000/submission";
+
+//TO DO: SORT NAMES BY POPULAR TYPE (click on type, names with that type as highest vote are brought to the top)
 const url = "https://tclzvnzmcqclngrsekfo.supabase.co";
 const public_api = "sb_publishable_cM6Vc142F4i-KjpCnX_MeA_y_H6prOz";
 
 const supabaseClient = supabase.createClient(url, public_api);
 const scQuery = window.matchMedia("(min-width: 1201px)");
 const tableTooltipCheck = document.querySelector('.table-tooltip-check');
+const tableTooltipCheckTwo = document.querySelector('.table-tooltip-check-two');
+
+let isOrganized = {Normal:false, Fire:false, Water:false, Electric:false, Grass:false, Ice:false, Fighting:false, Poison:false, Ground:false, Flying:false, Psychic:false, Bug:false, Rock:false, Ghost:false, Dragon:false, Dark:false, Steel:false, Fairy:false, Unsure:false};
+let previousType = 0;
 
 async function dataFetch() {
     const { data, error } = await supabaseClient
@@ -30,6 +35,7 @@ async function tableBuilder() {
     // console.log(submissions[0].profiles);
 
     const resultTypes = ["","Normal", "Fire", "Water", "Electric", "Grass", "Ice", "Fighting", "Poison", "Ground", "Flying", "Psychic", "Bug", "Rock", "Ghost", "Dragon", "Dark", "Steel", "Fairy", "Unsure"]; //columns
+
     if (submissions[0] !== undefined) {
         const resultNames = (submissions[0].profiles.map(profile => profile.name)); //rows
 
@@ -38,9 +44,6 @@ async function tableBuilder() {
         // console.log(resultValues);
 
         const resultCount = typeCounter(submissions, resultNames, resultTypes);
-        // const maxNum = calcMax(resultCount);
-
-        // console.log(count);
 
         // TYPES
         const table = document.createElement('table');
@@ -67,64 +70,31 @@ async function tableBuilder() {
             }
             typeHeader.appendChild(typeLabel);
             typeRow.appendChild(typeHeader);
+
+            typeLabel.addEventListener("click", function() {
+                tableTooltipCheckTwo.checked = true;
+                if (!isOrganized[type]) {
+                    const reorganizedNames = listOrganizer
+                    (resultNames, resultCount, type);
+                    organizeNameRow(table, reorganizedNames, resultCount,resultTypes);
+                    // console.log(previousType);
+                    isOrganized[type] = true;
+                    if(previousType !== type) {
+                        isOrganized[previousType] = false;
+                        previousType = type;
+                    }
+                    // console.log(previousType);
+                    // console.log(isOrganized);
+                } else {
+                    organizeNameRow(table, resultNames, resultCount, resultTypes);
+                    Object.keys(isOrganized).forEach(typeBool => isOrganized[typeBool] = false)
+                }
+            });
         });
         table.appendChild(typeRow);
-
-        // NAMES
-        resultNames.forEach(name => {
-            const nameRow = document.createElement('tr');
-                nameRow.classList.add("nameRow");
-            const nameHeader = document.createElement('th');
-                nameHeader.classList.add("nameHeader");
-            const nameLabel = document.createElement('label');
-                nameLabel.classList.add("nameLabel");
-            const topLabel = document.createElement('label');
-                topLabel.classList.add("topLabel");
-
-            const topTypes = topTypeFinder(resultCount[name]);
-
-            topTypes.forEach(type => {
-                const topImages = document.createElement('img');
-                    topImages.classList.add("topTypes");
-                    
-                if (type !== "Unsure") {
-                    topImages.src = `../assets/icons/${type.toLowerCase()}.svg`;
-                } else {    
-                    topImages.src = "../assets/question.svg";
-                }
-                topLabel.appendChild(topImages);
-            })
-            nameLabel.appendChild(document.createTextNode(name));
-            nameHeader.appendChild(nameLabel);
-            nameHeader.appendChild(topLabel);
-            nameRow.appendChild(nameHeader);
-
-            ['click','mouseenter'].forEach(event =>
-                nameLabel.addEventListener(event, function() {
-                    tableTooltipCheck.checked = true
-                })
-            );
-
-            const rowMax = calcMaxPerName(resultCount[name]);
-
-            resultTypes.forEach(type => {
-                if (type !== "") {
-                    const typeData = document.createElement('td');
-                        typeData.classList.add("typeData");
-                    const dataLabel = document.createElement('label');
-                        dataLabel.classList.add("dataLabel");
-                    const value = resultCount[name][type];
-                    dataLabel.textContent = value;
-                    boxColor(value, rowMax, dataLabel);
-                    typeData.appendChild(dataLabel);
-                    nameRow.appendChild(typeData);
-                }
-            })
-            table.appendChild(nameRow);
-        });
+        
+        organizeNameRow(table, resultNames, resultCount,resultTypes);
         resultTable.appendChild(table);   
-
-        // console.log(maxNum);
     } else {
         const failMsg = document.createElement('div');
             failMsg.classList.add("errorMsg")
@@ -133,6 +103,63 @@ async function tableBuilder() {
     }
 }
 
+function organizeNameRow(table, resultNames, resultCount, resultTypes) {
+    // DELETE ALL ROWS
+    table.querySelectorAll('.nameRow').forEach(row => row.remove());
+
+    // NAMES
+    resultNames.forEach(name => {
+        const nameRow = document.createElement('tr');
+            nameRow.classList.add("nameRow");
+        const nameHeader = document.createElement('th');
+            nameHeader.classList.add("nameHeader");
+        const nameLabel = document.createElement('label');
+            nameLabel.classList.add("nameLabel");
+        const topLabel = document.createElement('label');
+            topLabel.classList.add("topLabel");
+
+        const topTypes = topTypeFinder(resultCount[name]);
+
+        topTypes.forEach(type => {
+            const topImages = document.createElement('img');
+                topImages.classList.add("topTypes");
+                
+            if (type !== "Unsure") {
+                topImages.src = `../assets/icons/${type.toLowerCase()}.svg`;
+            } else {    
+                topImages.src = "../assets/question.svg";
+            }
+            topLabel.appendChild(topImages);
+        })
+        nameLabel.appendChild(document.createTextNode(name));
+        nameHeader.appendChild(nameLabel);
+        nameHeader.appendChild(topLabel);
+        nameRow.appendChild(nameHeader);
+
+        ['click','mouseenter'].forEach(event =>
+            nameLabel.addEventListener(event, function() {
+                tableTooltipCheck.checked = true;
+            })
+        );
+
+        const rowMax = calcMaxPerName(resultCount[name]);
+
+        resultTypes.forEach(type => {
+            if (type !== "") {
+                const typeData = document.createElement('td');
+                    typeData.classList.add("typeData");
+                const dataLabel = document.createElement('label');
+                    dataLabel.classList.add("dataLabel");
+                const value = resultCount[name][type];
+                dataLabel.textContent = value;
+                boxColor(value, rowMax, dataLabel);
+                typeData.appendChild(dataLabel);
+                nameRow.appendChild(typeData);
+            }
+        })
+        table.appendChild(nameRow);
+    });
+}
 
 function typeCounter(submissions, names, types) {
     const typeCount = {};
@@ -162,18 +189,6 @@ function typeCounter(submissions, names, types) {
 
     return typeCount;
 }
-
-// function calcMax(resultCount) {
-//     let maxValue = 0;
-//     Object.values(resultCount).forEach(name => {
-//         Object.values(name).forEach(typeValue =>{
-//             if (typeValue > maxValue) {
-//                 maxValue = typeValue;
-//             }
-//         })
-//     });
-//     return maxValue;
-// }
 
 function calcMaxPerName(nameCount) {
     let maxValue = 0;
@@ -205,6 +220,13 @@ function topTypeFinder(typeFinder) {
         topThree = test;
     }
     return topThree;
+}
+
+function listOrganizer(names, results, type) {
+    const newNames = names
+        .slice()
+        .sort((a, b) => results[b][type] - results[a][type]);
+    return newNames;
 }
 
 tableBuilder();

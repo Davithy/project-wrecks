@@ -141,6 +141,7 @@ footer {
 .dropdown-check,
 .choice-checker,
 .table-tooltip-check,
+.table-tooltip-check-two,
 .toomany-check {
     position: absolute;
     width: 1px;
@@ -151,22 +152,22 @@ footer {
 
 .tooltip,
 .table-tooltip,
+.table-tooltip-two,
 .toomany {
     pointer-events: none;
 }
 
-.table-tooltip {
+.table-tooltip,
+.table-tooltip-two {
     font-family: "Raleway", sans-serif;
     font-optical-sizing: auto;
     font-weight: 300;
     font-style: normal;
     background: var(--black);
     display: flex;
-    position: fixed;
     padding: 1rem;
     border-radius: 1rem;
     z-index: 10;
-    bottom: 5%;
     left: 50%;
     width: min(50%, 30rem);
     transform: translateX(-50%);
@@ -177,7 +178,18 @@ footer {
     font-size: min(5vw, 1.5rem);
 }
 
-.table-tooltip-check:checked ~ .table-tooltip {
+.table-tooltip {
+    position: fixed;
+    bottom: 5%;
+}
+
+.table-tooltip-two {
+    position: absolute;
+    top: 25%;
+}
+
+.table-tooltip-check:checked ~ .table-tooltip,
+.table-tooltip-check-two:checked ~ .table-tooltip-two {
     opacity: 0;
 }
 
@@ -495,6 +507,7 @@ footer {
     place-items: center;
     width: 6rem;
     height: 100%;
+    cursor: pointer;
 }
 
 .nameRow {
@@ -644,7 +657,7 @@ footer {
 
 
 @media screen and (min-width: 1201px) { 
-    
+
     .toomany {
         transform: translateY(3rem);
     }
