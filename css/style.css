@@ -140,7 +140,8 @@ footer {
 .tooltip-check,
 .dropdown-check,
 .choice-checker,
-.table-tooltip-check {
+.table-tooltip-check,
+.toomany-check {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -149,7 +150,8 @@ footer {
 }
 
 .tooltip,
-.table-tooltip {
+.table-tooltip,
+.toomany {
     pointer-events: none;
 }
 
@@ -221,7 +223,8 @@ footer {
     cursor: pointer;
 }
 
-.tooltip {
+.tooltip,
+.toomany {
     font-family: "Raleway", sans-serif;
     font-optical-sizing: auto;
     font-weight: 300;
@@ -239,7 +242,8 @@ footer {
     transition: opacity 0.3s;
 }
 
-.name-menu:has(.tooltip-check:checked) .tooltip {
+.name-menu:has(.tooltip-check:checked) .tooltip,
+.name-menu:has(.toomany-check:checked) .toomany {
     opacity: 1;
 }
 
@@ -640,6 +644,11 @@ footer {
 
 
 @media screen and (min-width: 1201px) { 
+    
+    .toomany {
+        transform: translateY(3rem);
+    }
+    
     .questionnaire {
         display: grid;
         padding: 0 5rem;
@@ -757,11 +766,13 @@ footer {
         overflow-x: scroll;
     }
 
-    .tooltip {
+    .tooltip,
+    .toomany {
         top: -11vh;
     }
     
-    .tooltip::after {
+    .tooltip::after,
+    .toomany::after {
         content: "";
         position: absolute;
         top: 100%;
@@ -774,6 +785,7 @@ footer {
 }
 
 @media screen and (max-width: 1200px) { 
+
     .questionnaire {
         display: grid;
         padding: 1rem;
@@ -856,7 +868,8 @@ footer {
         padding: 0.5rem 0;
     }
 
-    .tooltip {
+    .tooltip,
+    .toomany {
         left: 25%;
         bottom: 3rem;
         width: 50%;

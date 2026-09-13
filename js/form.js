@@ -46,6 +46,7 @@ const typeChoice = document.querySelectorAll('.choice .choice-checker');
 const clearChoice = document.querySelector('.clear-all .choice-checker');
 
 const tooltipTeaser = document.querySelector('.tooltip-check');
+const tooManyTeaser = document.querySelector('.toomany-check');
 
 const choiceProfile = optionsArr.map((option, index) => ({
     id: index,
@@ -152,7 +153,8 @@ typeChoice.forEach(checkbox => {
     checkbox.addEventListener("click", function() {
         const pkmnType = checkbox.dataset.type;
         const nameChoImg = optionList[activeIndex].querySelector('.chosen-types');
-
+        const activeProfile = choiceProfile[activeIndex].types;
+            
         if (pkmnType == "Clear All") { nameChoImg.innerHTML = ''; return };
 
         if (checkbox.checked) {
@@ -162,6 +164,7 @@ typeChoice.forEach(checkbox => {
             const imgClone = sourceImg.cloneNode();
             imgClone.dataset.type = pkmnType;
             nameChoImg.appendChild(imgClone);
+            
         } else {
             choiceProfile[activeIndex].types = choiceProfile[activeIndex].types.filter((unchecked) => unchecked !== pkmnType);
 
@@ -170,10 +173,30 @@ typeChoice.forEach(checkbox => {
             
             // Testing purposes --console.log(choiceProfile[activeIndex].types);
         }
+
+        if (activeProfile.length <= 6) {
+            tooManyTeaser.checked = false;
+        }
+
+        if (activeProfile.length >= 7) {
+            tooManyTeaser.checked = true;
+            // console.log("That's a few too many!");
+
+            const removeCB = Array.from(typeChoice).find(cb => cb.dataset.type === activeProfile[0])
+            if (removeCB) {
+                removeCB.checked = false;
+                const imgRemove = nameChoImg.querySelector(`[data-type = "${removeCB.dataset.type}"]`);
+                if (imgRemove) imgRemove.remove();
+                // console.log(removeCB.dataset.type);
+            }
+            activeProfile.shift();
+        }
+
         choiceProfile[activeIndex].complete = Array.from(typeChoice).some(cbox => cbox.checked);
 
         tooltipTeaser.checked = typeTeaser(choiceProfile);
         // Testing purposes --console.log(choiceProfile[activeIndex]);
+
         progressStatus();
     })
 });
