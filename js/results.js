@@ -38,7 +38,7 @@ async function tableBuilder() {
         // console.log(resultValues);
 
         const resultCount = typeCounter(submissions, resultNames, resultTypes);
-        const maxNum = calcMax(resultCount);
+        // const maxNum = calcMax(resultCount);
 
         // console.log(count);
 
@@ -105,6 +105,8 @@ async function tableBuilder() {
                 })
             );
 
+            const rowMax = calcMaxPerName(resultCount[name]);
+
             resultTypes.forEach(type => {
                 if (type !== "") {
                     const typeData = document.createElement('td');
@@ -113,7 +115,7 @@ async function tableBuilder() {
                         dataLabel.classList.add("dataLabel");
                     const value = resultCount[name][type];
                     dataLabel.textContent = value;
-                    boxColor(value, maxNum, dataLabel);
+                    boxColor(value, rowMax, dataLabel);
                     typeData.appendChild(dataLabel);
                     nameRow.appendChild(typeData);
                 }
@@ -161,15 +163,25 @@ function typeCounter(submissions, names, types) {
     return typeCount;
 }
 
-function calcMax(resultCount) {
+// function calcMax(resultCount) {
+//     let maxValue = 0;
+//     Object.values(resultCount).forEach(name => {
+//         Object.values(name).forEach(typeValue =>{
+//             if (typeValue > maxValue) {
+//                 maxValue = typeValue;
+//             }
+//         })
+//     });
+//     return maxValue;
+// }
+
+function calcMaxPerName(nameCount) {
     let maxValue = 0;
-    Object.values(resultCount).forEach(name => {
-        Object.values(name).forEach(typeValue =>{
-            if (typeValue > maxValue) {
-                maxValue = typeValue;
-            }
-        })
-    });
+    Object.values(nameCount).forEach(count => {
+        if (count > maxValue) {
+            maxValue = count;
+        }
+    })
     return maxValue;
 }
 
