@@ -427,10 +427,13 @@ footer {
 
 .results-resources {
     text-align: center;
+    display: flex;
+    gap: 0.5rem;
+    flex-direction: column;
 }
 
 .results-resources h1 {
-    font-size: min(10vw, 1.7rem)
+    font-size: min(10vw, 1.7rem);
 }
 
 .dataTable {
@@ -466,7 +469,7 @@ footer {
     background-color: hsl(from var(--secondary-color) h s l / 50%);
 }
 
-.nameRow:hover .nameHeader,
+.nameRow:hover .nameLabel,
 .typeData:hover {
     background-color: hsl(from var(--secondary-color) h calc( s - 20) calc( l - 10));
     color: var(--black);
@@ -478,6 +481,7 @@ footer {
     justify-content: center;
     width: 100%;
     padding: min(1vh, 1rem);
+    font-size: min(5vw, 1.6rem);
 }
 
 .nameHeader {
@@ -486,10 +490,10 @@ footer {
     font-style: normal;
     left: 0;
     z-index: 5;
-    padding: 0 1rem;
     box-shadow: 0.1rem 0px var(--white);
-    background-color: var(--black);
     position: sticky;
+    background-color: var(--black);
+    padding: 0;
 }
 
 .typeData {
@@ -502,11 +506,49 @@ footer {
 }
 
 .typeImg {
-    width: rem;
     height: 5rem;
     border-radius: 50%;
     background: var(--white);
     border: 0.5rem solid var(--white);
+}
+
+.nameLabel {
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    padding: 0.8rem 1rem;
+    background-color: var(--black);
+}
+
+.topLabel {
+    display: flex;
+    z-index: 0;
+    left: 0%;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    width: 100%;
+    border-radius: 0 1rem 1rem 0;
+    background: var(--white); 
+    border: 0.15rem solid var(--white);
+    padding: 0.2rem;
+    transition: left 0.2s, opacity 0.2s;
+}
+
+.nameHeader:hover .topLabel {
+    left:100%;
+    opacity: 1;
+}
+
+.topTypes {
+    width: 2.5rem;
+    height: 2.5rem;
+    flex-grow: 1;
 }
 
 .nameRow:nth-child(even) {
@@ -537,6 +579,16 @@ footer {
     text-decoration: none;
     color: var(--white);
     transition: all 0.3s;
+}
+
+.errorMsg {
+    font-size: clamp(2rem, 2vw + 0.1rem, 4rem);
+    text-align: center;
+    text-wrap: balance;
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -734,5 +786,10 @@ footer {
         width: 32px;
         height: 32px;
         border: 3px solid var(--white);
+    }
+
+    .topTypes {
+        width: 1.5rem;
+        height: 1.5rem;
     }
 }

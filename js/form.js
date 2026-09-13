@@ -6,14 +6,16 @@ const public_api = "sb_publishable_cM6Vc142F4i-KjpCnX_MeA_y_H6prOz";
 
 const supabaseClient = supabase.createClient(url, public_api);
 
-async function dataWrite(submitter, profile) {
-    const { data, error } = await supabaseClient
+async function dataWrite(submitters, profile) {
+    const { error } = await supabaseClient
         .from('wreckSubmissions')
-        .insert([{
-            submitter: submitter,
+        .upsert({
+            submitter: submitters,
             profiles: profile
-        }])
-        .upsert({submitter: submitter}, {onConflict: submitter})
+        }, 
+        {
+            onConflict: 'submitter'
+        })
         .select()
 
     if (error) {

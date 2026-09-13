@@ -29,32 +29,32 @@ async function tableBuilder() {
     // console.log(submissions[0].profiles);
 
     const resultTypes = ["","Normal", "Fire", "Water", "Electric", "Grass", "Ice", "Fighting", "Poison", "Ground", "Flying", "Psychic", "Bug", "Rock", "Ghost", "Dragon", "Dark", "Steel", "Fairy", "Unsure"]; //columns
-    const resultNames = (submissions[0].profiles.map(profile => profile.name)); //rows
+    if (submissions[0] !== undefined) {
+        const resultNames = (submissions[0].profiles.map(profile => profile.name)); //rows
 
-    // console.log(resultTypes);
-    // console.log(resultNames);
-    // console.log(resultValues);
+        // console.log(resultTypes);
+        // console.log(resultNames);
+        // console.log(resultValues);
 
-    const resultCount = typeCounter(submissions, resultNames, resultTypes);
-    const maxNum = calcMax(resultCount);
+        const resultCount = typeCounter(submissions, resultNames, resultTypes);
+        const maxNum = calcMax(resultCount);
 
-    // console.log(count);
+        // console.log(count);
 
-    // TYPES
-    const table = document.createElement('table');
-        table.classList.add("dataTable");
+        // TYPES
+        const table = document.createElement('table');
+            table.classList.add("dataTable");
 
-    const typeRow = document.createElement('tr');
-        typeRow.classList.add("typeRow");
-    resultTypes.forEach(type => {
-        const typeHeader = document.createElement('th');
-            typeHeader.classList.add("typeHeader");
-            
+        const typeRow = document.createElement('tr');
+            typeRow.classList.add("typeRow");
+        resultTypes.forEach(type => {
+            const typeHeader = document.createElement('th');
+                typeHeader.classList.add("typeHeader");
             const typeLabel = document.createElement('label');
                 typeLabel.classList.add("typeLabel");
             const typeImg = document.createElement('img');
                 typeImg.classList.add("typeImg")
-            const typeImages = "../assets/icons/" + type.toLowerCase() + ".svg";
+            const typeImages = `../assets/icons/${type.toLowerCase()}.svg`;
             const unsureImage = "../assets/question.svg";
             if (type == "Unsure") {
                 typeImg.src = unsureImage;
@@ -65,37 +65,63 @@ async function tableBuilder() {
                 typeLabel.appendChild(typeImg);
             }
             typeHeader.appendChild(typeLabel);
-        typeRow.appendChild(typeHeader);
-    });
-    table.appendChild(typeRow);
+            typeRow.appendChild(typeHeader);
+        });
+        table.appendChild(typeRow);
 
-    // NAMES
-    resultNames.forEach(name => {
-        const nameRow = document.createElement('tr');
-            nameRow.classList.add("nameRow");
-        const nameHeader = document.createElement('th');
-            nameHeader.classList.add("nameHeader");
-        nameHeader.appendChild(document.createTextNode(name));
-        nameRow.appendChild(nameHeader);
+        // NAMES
+        resultNames.forEach(name => {
+            const nameRow = document.createElement('tr');
+                nameRow.classList.add("nameRow");
+            const nameHeader = document.createElement('th');
+                nameHeader.classList.add("nameHeader");
+            const nameLabel = document.createElement('label');
+                nameLabel.classList.add("nameLabel");
+            const topLabel = document.createElement('label');
+                topLabel.classList.add("topLabel");
 
-        resultTypes.forEach(type => {
-            if (type !== "") {
-                const typeData = document.createElement('td');
-                    typeData.classList.add("typeData");
-                const dataLabel = document.createElement('label');
-                    dataLabel.classList.add("dataLabel");
-                const value = resultCount[name][type];
-                dataLabel.textContent = value;
-                boxColor(value, maxNum, dataLabel);
-                typeData.appendChild(dataLabel);
-                nameRow.appendChild(typeData);
-            }
-        })
-        table.appendChild(nameRow);
-    });
-    resultTable.appendChild(table);   
+            const topTypes = topTypeFinder(resultCount[name]);
 
-    // console.log(maxNum);
+            topTypes.forEach(type => {
+                const topImages = document.createElement('img');
+                    topImages.classList.add("topTypes");
+                    
+                if (type !== "Unsure") {
+                    topImages.src = `../assets/icons/${type.toLowerCase()}.svg`;
+                } else {    
+                    topImages.src = "../assets/question.svg";
+                }
+                topLabel.appendChild(topImages);
+            })
+            nameLabel.appendChild(document.createTextNode(name));
+            nameHeader.appendChild(nameLabel);
+            nameHeader.appendChild(topLabel);
+            nameRow.appendChild(nameHeader);
+
+            resultTypes.forEach(type => {
+                if (type !== "") {
+                    const typeData = document.createElement('td');
+                        typeData.classList.add("typeData");
+                    const dataLabel = document.createElement('label');
+                        dataLabel.classList.add("dataLabel");
+                    const value = resultCount[name][type];
+                    dataLabel.textContent = value;
+                    boxColor(value, maxNum, dataLabel);
+                    typeData.appendChild(dataLabel);
+                    nameRow.appendChild(typeData);
+                }
+            })
+            table.appendChild(nameRow);
+        });
+        resultTable.appendChild(table);   
+
+        // console.log(maxNum);
+    } else {
+        const failMsg = document.createElement('div');
+            failMsg.classList.add("errorMsg")
+            failMsg.appendChild(document.createTextNode("Hmm... Looks like we're still calculating the numbers. Give us a few seconds, then refresh the page!"))
+        resultTable.appendChild(failMsg);   
+    }
 }
 
 
@@ -146,6 +172,20 @@ function boxColor(value, maxValue, dataLabel) {
         processedCount = (value/maxValue);
     }
     dataLabel.style.backgroundColor = `hsla(353, 86%, 54%, ${processedCount})`;
+}
+
+function topTypeFinder(typeFinder) {
+    let topThree = []
+    if (topThree.length < 3) {
+        const test = Object.entries(typeFinder)
+            .slice()
+            .filter(([type, count]) => count > 0)
+            .sort(function (a, b) { return b[1] - a[1]; })
+            .slice(0,3)
+            .map(([type, count]) => type);
+        topThree = test;
+    }
+    return topThree;
 }
 
 tableBuilder();
