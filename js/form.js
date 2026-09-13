@@ -113,7 +113,7 @@ async function nameCheck() {
     // Testing purposes --console.log(cleanProfile);
     const nameVal = user.value;
     if (!nameVal) { return; }
-    dataWrite(nameVal, cleanProfile)
+    dataWrite(nameVal.toUpperCase(), cleanProfile)
         .then (() => {
         window.location.href = "results/";
     });

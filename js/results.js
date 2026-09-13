@@ -7,6 +7,7 @@ const public_api = "sb_publishable_cM6Vc142F4i-KjpCnX_MeA_y_H6prOz";
 
 const supabaseClient = supabase.createClient(url, public_api);
 const scQuery = window.matchMedia("(min-width: 1201px)");
+const tableTooltipCheck = document.querySelector('.table-tooltip-check');
 
 async function dataFetch() {
     const { data, error } = await supabaseClient
@@ -97,6 +98,12 @@ async function tableBuilder() {
             nameHeader.appendChild(nameLabel);
             nameHeader.appendChild(topLabel);
             nameRow.appendChild(nameHeader);
+
+            ['click','mouseenter'].forEach(event =>
+                nameLabel.addEventListener(event, function() {
+                    tableTooltipCheck.checked = true
+                })
+            );
 
             resultTypes.forEach(type => {
                 if (type !== "") {
