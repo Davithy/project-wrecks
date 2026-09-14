@@ -471,7 +471,7 @@ footer {
 .results-resources {
     text-align: center;
     display: flex;
-    gap: 0.5rem;
+    gap: 1rem;
     flex-direction: column;
 }
 
@@ -646,6 +646,15 @@ footer {
 
 .submission-inp {
     position: relative;
+}
+
+.special {
+    color: hsl(from var(--secondary-color) h calc(s - 30) calc(l - 30));
+    transition: color 0.3s;
+}
+
+.special:hover {
+    color: hsl(from var(--secondary-color) h s l);
 }
 
 @media (hover: hover) and (pointer: fine) {
