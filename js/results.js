@@ -1,8 +1,6 @@
 Fancybox.bind("[data-fancybox]", {
 })
 
-
-//TO DO: SORT NAMES BY POPULAR TYPE (click on type, names with that type as highest vote are brought to the top)
 const url = "https://tclzvnzmcqclngrsekfo.supabase.co";
 const public_api = "sb_publishable_cM6Vc142F4i-KjpCnX_MeA_y_H6prOz";
 
@@ -28,6 +26,15 @@ async function dataFetch() {
 };
 
 async function tableBuilder() {
+    if (localStorage.getItem('tooltipCheck') == 'true') {
+        tableTooltipCheck.checked = true;
+    }
+
+    if (localStorage.getItem('tooltipCheckTwo') == 'true') {
+        tableTooltipCheckTwo.checked = true;
+    }
+    
+
     const resultTable = document.querySelector('#final-results');
 
     const resultData = await dataFetch();
@@ -73,6 +80,7 @@ async function tableBuilder() {
 
             typeLabel.addEventListener("click", function() {
                 tableTooltipCheckTwo.checked = true;
+                localStorage.setItem('tooltipCheckTwo', 'true');
                 if (!isOrganized[type]) {
                     const reorganizedNames = listOrganizer
                     (resultNames, resultCount, type);
@@ -139,6 +147,7 @@ function organizeNameRow(table, resultNames, resultCount, resultTypes) {
         ['click','mouseenter'].forEach(event =>
             nameLabel.addEventListener(event, function() {
                 tableTooltipCheck.checked = true;
+                localStorage.setItem('tooltipCheck', 'true');
             })
         );
 
