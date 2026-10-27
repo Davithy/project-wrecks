@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARTS N WRECKS</title>
+    <meta name="description"
+        content="">
+    <meta name="keywords" content="">
+    <script type="module" src="../js/accHandling.js"></script>
+
+    <!-- FAVICON -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="../../assets/favicon/site.webmanifest">
+
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Rubik+Mono+One&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    
+    <!-- FANCYBOX -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.umd.js"></script>
+
+    <!-- SUPABASE -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- STYLESHEETS -->
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/home.css">
+</head>
+
+<body>
+<!-- = NAV BAR = -->
+    <header class="navbar">
+        <nav class="nav-menu">
+            <div class="main-nav">
+                <div class = "nav-item"><a href="#" class="main-nav">Home</a></div>
+                <div class = "nav-item"><a href="#about" class="main-nav">About</a></div>
+                <div class = "nav-item"><a href="#artists" class="main-nav">Artists<span class="nav-arrow artist-check artist-only">▾</span></a>
+                    <ul class="dropdown-panel artist-check artist-only">
+                        <li><a href="../artist/">Artists</a></li>
+                        <li><a href="../artist/account" data-fancybox>Account</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="acc-menu">
+                <div class="nav-item special">
+                    <button onclick="window.location.href='../artist/login';" class="acc-btn login-redirect hidden" type="button">
+                        <label>
+                            <h3>Log in</h3>
+                        </label>
+                    </button>
+                </div>
+                <div class="nav-item special">
+                    <button class="acc-btn acc-logout hidden" type="button">
+                        <label>
+                            <h3>Log Out</h3>
+                        </label>
+                    </button>
+                </div>
+            </div>
+        </nav>
+<!-- = FOR SMALLER SCREENS = -->
+        <section class="burger-menu">
+            <input type="checkbox" id="nav-check" class="burger-check">
+            <div class="burger-btn" aria-hidden="true">
+                <label for="nav-check" class="burger-icon">
+                <span class="burger-lines" aria-hidden="true"><i></i><i></i><i></i></span>
+                </label>
+            </div>
+        </section>
+    </header>
+
+    <main>
+        <section id="home">
+            <a class="logo-home" href="#">
+                <label class="logo">
+                    <img class="logo-item main" alt="ARTS">
+                    <div class="logo-sparkle"></div> 
+                    <p class="logo-item tag">WRECKS</p>
+                </label>
+            </a>
+        </section>
+        <section id="about">
+            <h1>About</h1>
+        </section>
+        <section id="artists">
+            <h1>CHOOSE YOUR ARTIST!</h1>
+        </section>
+    </main>
+
+<!-- = FOOTER = -->
+    <footer class="footer">
+        <p>© 2026 by Aron Ferreras</p>
+        <div class="socials">
+        </div>
+    </footer>
+    <div class="bg-skies"></div>
+</body>
+<noscript>Some functions are not fully available without Javascript, but enjoy the art!</noscript>
+</html>
