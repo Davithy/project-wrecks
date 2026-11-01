@@ -1,6 +1,6 @@
-const url = "https://bfyvolhralzalauadcsg.supabase.co";
-const public_api = "sb_publishable_eI9Xb0qpcS0-yEEUJ-bAig_nLLL3b1_";
-const sbTable = "ssPortfolio"
+const url = "https://tclzvnzmcqclngrsekfo.supabase.co";
+const public_api = "sb_publishable_cM6Vc142F4i-KjpCnX_MeA_y_H6prOz";
+const sbTable = "wrecksPortfolio"
 
 const supaClient = supabase.createClient(url, public_api);
 
